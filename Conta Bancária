@@ -1,0 +1,99 @@
+DESAFIO DIO - Trilha Java Básico
+    Crie o projeto ContaBanco que receberá dados via terminal contendo as características de conta em banco conforme atributos abaixo:
+Dentro do projeto, crie a classe ContaTerminal.java para realizar toda a codificação do nosso programa.
+
+Revise sobre regras de declaração de variáveis
+
+Atributo	Tipo	Exemplo
+Numero	Inteiro	1021
+Agencia	Texto	067-8
+Nome Cliente	Texto	MARIO ANDRADE
+Saldo	Decimal	237.48
+
+Revise sobre terminal, main args e a classe Scanner
+  
+    Permita que os dados sejam inseridos via terminal sendo que o usuário receberá a mensagem de qual informação será solicitada, exemplo:
+
+Programa: "Por favor, digite o número da Agência !"
+Usuário: 1021 (depois ENTER para o próximo campo)
+
+    Revise sobre concatenação e classe String com método concat
+Depois de todas as informações terem sido inseridas, o sistema deverá exibir a seguinte mensagem:
+
+"Olá [Nome Cliente], obrigado por criar uma conta em nosso banco, sua agência é [Agencia], conta [Numero] e seu saldo [Saldo] já está disponível para saque".
+
+PROJETO :
+
+package contaBancaria;
+
+import javax.swing.JOptionPane;
+
+public class versao2 {
+
+    public static void main(String[] args) {
+        // Solicitação e leitura dos dados usando JOptionPane com validação
+        String agencia = solicitarAgencia();
+        int numero = solicitarNumeroConta();
+        String nomeCliente = solicitarNomeCliente();
+        double saldo = solicitarSaldo();
+
+        // Formatação do saldo
+        String saldoFormatado = String.format("R$ %.2f", saldo);
+
+        // Criação da mensagem personalizada
+        String mensagem = "Olá " + nomeCliente + ", obrigado por criar uma conta em nosso banco, "
+                          + "sua agência é " + agencia + ", conta " + numero
+                          + " e seu saldo " + saldoFormatado + " já está disponível para saque.";
+
+        // Exibe a mensagem personalizada usando JOptionPane
+        JOptionPane.showMessageDialog(null, mensagem);
+    }
+
+    private static String solicitarAgencia() {
+        while (true) {
+            String agencia = JOptionPane.showInputDialog("Por favor, digite o número da Agência:");
+            if (agencia.matches("\\d+")) {
+                return agencia;
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, digite apenas números para a Agência.");
+            }
+        }
+    }
+
+    private static int solicitarNumeroConta() {
+        while (true) {
+            String numeroConta = JOptionPane.showInputDialog("Por favor, digite o número da Conta:");
+            try {
+                return Integer.parseInt(numeroConta);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, digite apenas números para a Conta.");
+            }
+        }
+    }
+
+    private static String solicitarNomeCliente() {
+        while (true) {
+            String nomeCliente = JOptionPane.showInputDialog("Por favor, digite o Nome do Cliente:");
+            if (nomeCliente.matches("[a-zA-Z\\s]+")) {
+                return nomeCliente;
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, digite apenas letras para o Nome do Cliente.");
+            }
+        }
+    }
+
+    private static double solicitarSaldo() {
+        while (true) {
+            String saldoConta = JOptionPane.showInputDialog("Por favor, digite o Saldo:");
+            try {
+                return Double.parseDouble(saldoConta);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, digite um valor numérico para o Saldo.");
+            }
+        }
+    }
+}
+
+Está versão impede que números e letras sejam utilizados em locais inadequados, além de mostrar ao usuário por meio de telas ao invés de ser mostrado no terminal.
+
+Acompanhem sempre estou atualizando meus repertórios com minha evolução em programação
